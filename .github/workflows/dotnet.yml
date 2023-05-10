@@ -7,9 +7,7 @@ on:
   workflow_dispatch:
   #push:
   #  branches: [ "master" ]
-
 jobs:
-
   dev:
     runs-on: windows-2019
     steps:
@@ -19,7 +17,6 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - run: echo "dev"
-
 uat:
     needs: dev
     runs-on: windows-2019
@@ -35,7 +32,6 @@ uat:
         eslint: true
         prettier: true
     - run: echo "uat"
-
   prod:
     needs: uat
     runs-on: windows-2019
@@ -46,4 +42,3 @@ uat:
       with:
         dotnet-version: 6.0.x
     - run: echo "prod"
-
