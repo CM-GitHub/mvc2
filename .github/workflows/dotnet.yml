@@ -4,9 +4,7 @@
 name: .NET
 
 on:
-  workflow_dispatch
-  #push:
-  #  branches: [ "master" ]
+  workflow_dispatch:
 
 jobs:
   dev:
@@ -18,7 +16,7 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - run: echo "dev"
-uat:
+  uat:
     needs: dev
     runs-on: windows-2019
     steps:
@@ -27,11 +25,6 @@ uat:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
-    - name: Run linters
-      uses: wearerequired/lint-action@v2
-      with:
-        eslint: true
-        prettier: true
     - run: echo "uat"
   prod:
     needs: uat
