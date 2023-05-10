@@ -9,6 +9,7 @@ on:
   #  branches: [ "master" ]
 
 jobs:
+
   dev:
     runs-on: windows-2019
     steps:
@@ -18,7 +19,8 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - run: echo "dev"
-  uat:
+
+uat:
     needs: dev
     runs-on: windows-2019
     steps:
@@ -27,9 +29,13 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
-    - name: ESLint (JS/TS) Action 
-      uses: iCrawl/action-eslint@v1
-      with: src
+    - name: Run linters
+      uses: wearerequired/lint-action@v2
+      with:
+        eslint: true
+        prettier: true
+    - run: echo "uat"
+
   prod:
     needs: uat
     runs-on: windows-2019
