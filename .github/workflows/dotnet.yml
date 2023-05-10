@@ -4,10 +4,9 @@
 name: .NET
 
 on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+  workflow_dispatch:
+  #push:
+  #  branches: [ "master" ]
 
 jobs:
   dev:
@@ -19,6 +18,7 @@ jobs:
       with:
         dotnet-version: 6.0.x
   uat:
+    needs: dev
     runs-on: windows-2019
     steps:
     - uses: actions/checkout@v3
@@ -26,7 +26,12 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
+    - name: Super-Linter
+      # You may pin to the exact commit or the version.
+      # uses: super-linter/super-linter@45fc0d88288beee4701c62761281edfee85655d7
+      uses: super-linter/super-linter@v5.0.0
   prod:
+    needs: uat
     runs-on: windows-2019
     steps:
     - uses: actions/checkout@v3
